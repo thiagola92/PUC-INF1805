@@ -27,6 +27,8 @@ void timer_set(int ms)
   time_waited = millis() + ms;
 }
 
+//////////////////////////////////////////////////////////////////////
+
 void setup()
 {
   Serial.begin(9600);
@@ -37,12 +39,6 @@ void setup()
   appint();
 }
 
-void loop()
-{
-  check_buttons();
-  check_timer();
-}
-
 void initialize_buttons()
 {
   for(int i = 0; i < BUTTONS; ++i)
@@ -50,6 +46,12 @@ void initialize_buttons()
     buttons_listening[i] = -1;
     is_button_pressed[i] = false;
   }
+}
+
+void loop()
+{
+  check_buttons();
+  check_timer();
 }
 
 void check_buttons()

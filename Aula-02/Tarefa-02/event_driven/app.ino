@@ -39,23 +39,16 @@ void button_changed(int p, int v)
 
 boolean buttons_pressed()
 {
-  if(buttons_pressed_before())
+  // Se ambos botoes ja foram apertados alguma vez na vida
+  if(button1_time_pressed != -1 && button2_time_pressed != -1)
     return pressed_interval_inside(500);
 
-  return false;
-}
-
-boolean buttons_pressed_before()
-{
-  if(button1_time_pressed != -1 && button2_time_pressed != -1)
-    return true;
   return false;
 }
 
 boolean pressed_interval_inside(long max_interval)
 {
   long interval = abs(button1_time_pressed - button2_time_pressed);
-  Serial.println(interval);
 
   if(interval < max_interval)
     return true;
