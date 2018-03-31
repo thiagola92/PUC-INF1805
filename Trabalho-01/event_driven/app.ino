@@ -13,8 +13,8 @@ void appint()
   
   timer_set(0);
   
-  setHour(1);
-  setMinute(32);
+  setHour(23);
+  setMinute(59);
 }
 
 void button_changed(int p, int v)

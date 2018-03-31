@@ -14,6 +14,8 @@ void setHour(int h)
 void setMinute(int m)
 {
   minute = m % 60;
+
+  setHour(hour + m/60);
 }
 
 void updateClock()
@@ -21,15 +23,12 @@ void updateClock()
   unsigned long now = millis();
   millisecond = millisecond + (now - lastUpdate);
   lastUpdate = now;
-
-  int h = millisecond / 3600000;
-  millisecond = millisecond - (h * 3600000);
   
   int m = millisecond / 60000;
   millisecond = millisecond - (m * 60000);
-
-  setHour(hour + h);
+  
   setMinute(minute + m);
+  
   Serial.print(hour);
   Serial.print(":");
   Serial.print(minute);
