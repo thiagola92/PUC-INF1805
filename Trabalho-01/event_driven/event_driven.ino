@@ -1,8 +1,7 @@
-#include "event_driven.h"
 #include "app.h"
 
 #define PRESSED_DOWN 0
-#define BUTTONS 3
+#define BUTTONS 50
 
 boolean is_waiting_timer;
 unsigned long time_waited;
