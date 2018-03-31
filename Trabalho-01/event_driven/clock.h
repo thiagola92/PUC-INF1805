@@ -31,6 +31,9 @@ class Clock
     
     // Apresenta no display o horario e minuto
     void displayClock();
+
+    // Retorna a diferença de tempo entre um relogio e outro em millisegundos
+    long differenceBetween(Clock c);
 };
 
 #endif

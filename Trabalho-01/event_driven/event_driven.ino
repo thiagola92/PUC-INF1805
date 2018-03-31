@@ -7,7 +7,7 @@ boolean is_waiting_timer;
 unsigned long time_waited;
 
 int buttons_listening[BUTTONS];
-boolean is_button_pressed[BUTTONS];
+boolean button_pressed[BUTTONS];
 
 void button_listen(int pin)
 {
@@ -22,10 +22,27 @@ void button_listen(int pin)
   }
 }
 
-void timer_set(int ms)
+boolean is_button_pressed(int pin)
 {
+  for(int i = 0; i < BUTTONS && buttons_listening[i] != -1; ++i)
+  {
+    if(buttons_listening[i] == pin)
+      return button_pressed[i];
+  }
+
+  return false;
+}
+
+void timer_set(long ms)
+{
+  Serial.println(ms);
   is_waiting_timer = true;
   time_waited = millis() + ms;
+}
+
+void cancel_timer()
+{
+  is_waiting_timer = false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -46,12 +63,14 @@ void initialize_buttons()
   for(int i = 0; i < BUTTONS; ++i)
   {
     buttons_listening[i] = -1;
-    is_button_pressed[i] = false;
+    button_pressed[i] = false;
   }
 }
 
 void loop()
 {
+  always_loop();
+  
   check_buttons();
   check_timer();
 }
@@ -74,10 +93,10 @@ void check_button(int button_id)
 
 boolean is_button_changed(int button_id, int button_val)
 {
-  if(button_val == PRESSED_DOWN && is_button_pressed[button_id] == false ||
-    button_val == !PRESSED_DOWN && is_button_pressed[button_id] == true)
+  if(button_val == PRESSED_DOWN && button_pressed[button_id] == false ||
+    button_val == !PRESSED_DOWN && button_pressed[button_id] == true)
   {
-    is_button_pressed[button_id] = !is_button_pressed[button_id];
+    button_pressed[button_id] = !button_pressed[button_id];
     return true;
   }
   

@@ -8,10 +8,6 @@
 #define OFF HIGH
 #define ON LOW
 
-#define IS_NORMAL_MODE mode == NORMAL_MODE || mode == NORMAL_MODE_HOUR || mode == NORMAL_MODE_MINUTE
-#define IS_ALARM_MODE mode == ALARM_MODE || mode == ALARM_MODE_HOUR || mode == ALARM_MODE_MINUTE
-#define IS_KEY3_PRESSED is_button_pressed[2]
-
 typedef enum
 {
   NORMAL_MODE,
@@ -25,21 +21,22 @@ typedef enum
 Mode mode = NORMAL_MODE;
 Clock normalClock;
 Clock alarmClock;
+boolean alarmOn = false;
 
 void appint()
 {
+  setupArduino();
   setupBuzzer();
   setupDisplay();
   
-  timer_set(0);
+  normalClock.setHour(00);
+  normalClock.setMinute(00);
+
+  alarmClock.setHour(00);
+  alarmClock.setMinute(01);
   
-  normalClock.setHour(23);
-  normalClock.setMinute(59);
-
-  alarmClock.setHour(23);
-  alarmClock.setMinute(59);
-
-  setupArduino();
+  addSchedule(0, 100);
+  addSchedule(1, 1000);
 }
 
 void setupArduino()
@@ -59,43 +56,49 @@ void setupArduino()
   digitalWrite(LED4, OFF);
 }
 
+void always_loop()
+{
+  if (mode == NORMAL_MODE || mode == NORMAL_MODE_HOUR || mode == NORMAL_MODE_MINUTE)
+  {
+    normalClock.updateClock();
+    normalClock.displayClock();
+  }
+  else if (mode == ALARM_MODE || mode == ALARM_MODE_HOUR || mode == ALARM_MODE_MINUTE)
+  {
+    alarmClock.displayClock();
+  }
+}
+
 void button_changed(int p, int v)
 {
-  if(IS_NORMAL_MODE)
+  if(mode == NORMAL_MODE || mode == NORMAL_MODE_HOUR || mode == NORMAL_MODE_MINUTE)
     normalMode(p, v);
-  else if(IS_ALARM_MODE)
+  else if(mode == ALARM_MODE || mode == ALARM_MODE_HOUR || mode == ALARM_MODE_MINUTE)
     alarmMode(p, v);
 }
 
 void timer_expired()
 {
+  playSchedule();
   timer_set(0);
-
-  if (IS_NORMAL_MODE)
-  {
-    normalClock.updateClock();
-    normalClock.displayClock();
-  }
-  else if (IS_ALARM_MODE)
-  {
-    alarmClock.displayClock();
-  }
 }
 
 void normalMode(int p, int v)
 {
   if(p == KEY1 && v == PRESSED_DOWN)
   {
-    if (IS_KEY3_PRESSED)
+    if (is_button_pressed(KEY3))
       mode = NORMAL_MODE_HOUR;
     else if (mode == NORMAL_MODE_MINUTE)
       normalClock.setMinute(normalClock.getMinute() + 1);
     else if (mode == NORMAL_MODE_HOUR)
       normalClock.setHour(normalClock.getHour() + 1);
+    else
+      turnOnOffAlarm();
   }
   else if(p == KEY2 && v == PRESSED_DOWN)
   {
-    if (IS_KEY3_PRESSED)
+    if (is_button_pressed(KEY3))
       mode = NORMAL_MODE_MINUTE;
     else if (mode == NORMAL_MODE_MINUTE)
       normalClock.setMinute(normalClock.getMinute() - 1);
@@ -112,7 +115,7 @@ void alarmMode(int p, int v)
 {
   if(p == KEY1 && v == PRESSED_DOWN)
   {
-    if (IS_KEY3_PRESSED)
+    if (is_button_pressed(KEY3))
       mode = ALARM_MODE_HOUR;
     else if (mode == ALARM_MODE_MINUTE)
       alarmClock.setMinute(alarmClock.getMinute() + 1);
@@ -121,7 +124,7 @@ void alarmMode(int p, int v)
   }
   else if(p == KEY2 && v == PRESSED_DOWN)
   {
-    if (IS_KEY3_PRESSED)
+    if (is_button_pressed(KEY3))
       mode = ALARM_MODE_MINUTE;
     else if (mode == ALARM_MODE_MINUTE)
       alarmClock.setMinute(alarmClock.getMinute() - 1);
@@ -132,5 +135,23 @@ void alarmMode(int p, int v)
   {
     mode = NORMAL_MODE;
   }
+}
+
+void turnOnOffAlarm()
+{
+  if(alarmOn == true)
+  {
+    cancel_timer();
+    digitalWrite(LED1, OFF);
+    changeBuzzerAfter(OFF, 0);
+  }
+  else
+  {
+    long difference = normalClock.differenceBetween(alarmClock);
+    timer_set(difference);
+    digitalWrite(LED1, ON);
+  }
+  
+  alarmOn = !alarmOn;
 }
 

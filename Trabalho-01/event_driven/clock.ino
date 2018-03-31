@@ -54,12 +54,6 @@ void Clock::updateClock()
   
   // Define os minutos
   minute = (minute + m) % 60;
-
-  Serial.print(hour);
-  Serial.print(":");
-  Serial.print(minute);
-  Serial.print(":");
-  Serial.println(millisecond);
 }
 
 void Clock::displayClock()
@@ -69,5 +63,24 @@ void Clock::displayClock()
   writeNumberToSegment(2, minute / 10);
   writeNumberToSegment(3, minute % 10);
   cleanDisplay();
+}
+
+long Clock::differenceBetween(Clock c)
+{
+  long diffH = c.getHour() - hour;
+  if(diffH < 0)
+    diffH = 24 + diffH;
+
+  long diffM = c.getMinute() - minute;
+  if(diffM < 0)
+    diffM = 60 + diffM;
+  
+  diffH = diffH * 60 * 60 * 1000;
+  diffM = diffM * 60 * 1000;
+
+  long diff = -(long)millisecond;
+  diff = diff + diffH + diffM;
+  
+  return diff;
 }
 
