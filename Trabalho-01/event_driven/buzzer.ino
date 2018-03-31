@@ -9,12 +9,12 @@
 #define NO_SCHEDULE -1
 
 boolean buzzerState = OFF;
-unsigned int lastTimeChanged = millis();
+unsigned long lastTimeChanged = millis();
 
 unsigned int schedule[SCHEDULES_SIZE];
 int scheduleNow = 0;
 
-void buzzerSetup()
+void setupBuzzer()
 {
   pinMode(BUZZER_DIO, OUTPUT);
   digitalWrite(BUZZER_DIO, OFF);
@@ -34,7 +34,7 @@ void playSchedule()
     scheduleNow = 0;
 
   if(schedule[scheduleNow] != NO_SCHEDULE)
-    buzzerChangeAfter(!buzzerState, schedule[scheduleNow]);
+    changeBuzzerAfter(!buzzerState, schedule[scheduleNow]);
 }
 
 void addSchedule(int pos_schedule, int ms)
@@ -42,7 +42,7 @@ void addSchedule(int pos_schedule, int ms)
   schedule[pos_schedule] = ms;
 }
 
-void buzzerChangeAfter(boolean state, int ms)
+void changeBuzzerAfter(boolean state, int ms)
 {
   if(buzzerState == state)
     return;

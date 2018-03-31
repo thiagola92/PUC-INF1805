@@ -1,5 +1,5 @@
 // Carrega as configuracoes necessarias para usar o buzzer
-void buzzerSetup();
+void setupBuzzer();
 
 // Troca o estado do buzzer de acordo com o schedule montado
 // Criado para conseguir fazer musica/toque
@@ -9,4 +9,4 @@ void playSchedule();
 void addSchedule(int pos_schedule, int ms);
 
 // Forma mais bruta de alterar o estado do buzzer
-void buzzerChangeAfter(boolean state, int ms);
+void changeBuzzerAfter(boolean state, int ms);

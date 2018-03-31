@@ -4,7 +4,9 @@
 #define PRESSED_DOWN 0
 #define BUTTONS 3
 
+boolean is_waiting_timer;
 unsigned long time_waited;
+
 int buttons_listening[BUTTONS];
 boolean is_button_pressed[BUTTONS];
 
@@ -23,6 +25,7 @@ void button_listen(int pin)
 
 void timer_set(int ms)
 {
+  is_waiting_timer = true;
   time_waited = millis() + ms;
 }
 
@@ -31,8 +34,9 @@ void timer_set(int ms)
 void setup()
 {
   Serial.begin(9600);
-  
+
   time_waited = 0;
+  is_waiting_timer = false;
   initialize_buttons();
   
   appint();
@@ -83,11 +87,11 @@ boolean is_button_changed(int button_id, int button_val)
 
 void check_timer()
 {
-  if(time_waited != 0)
+  if(is_waiting_timer == true)
   {
     if(millis() >= time_waited)
     {
-      time_waited = 0;
+      is_waiting_timer = false;
       timer_expired();
     }
   }
