@@ -23,6 +23,10 @@ Clock normalClock;
 Clock alarmClock;
 boolean alarmOn = false;
 
+boolean isRecording = false;
+unsigned long lastRecord = 0;
+int lastRecordPosition = 0;
+
 void appint()
 {
   setupArduino();
@@ -77,6 +81,9 @@ void button_changed(int p, int v)
     secondButton();
   else if(p == KEY3 && v == PRESSED_DOWN)
     thirdButton();
+
+  if(p == KEY1 && v != PRESSED_DOWN && mode == ALARM_MODE && isRecording == true)
+    addRecording();
 }
 
 void timer_expired()
@@ -99,6 +106,8 @@ void firstButton()
     alarmClock.setMinute(alarmClock.getMinute() + 1);
   else if (mode == ALARM_MODE_HOUR)
     alarmClock.setHour(alarmClock.getHour() + 1);
+  else if (mode == ALARM_MODE && isRecording == true)
+    addRecording();
 }
 
 void firstAndThirdButtons()
@@ -127,6 +136,8 @@ void secondButton()
     alarmClock.setMinute(alarmClock.getMinute() - 1);
   else if (mode == ALARM_MODE_HOUR)
     alarmClock.setHour(alarmClock.getHour() - 1);
+  else if (mode == ALARM_MODE)
+    recording();
 }
 
 void secondAndThirdButtons()
@@ -145,6 +156,8 @@ void secondAndThirdButtons()
 
 void thirdButton()
 {
+  stopRecording();
+  
   if(mode == NORMAL_MODE || mode == NORMAL_MODE_HOUR || mode == NORMAL_MODE_MINUTE)
   {
     mode = ALARM_MODE;
@@ -177,5 +190,43 @@ void turnOnOffAlarm()
   }
   
   alarmOn = !alarmOn;
+}
+
+void recording()
+{
+  if(isRecording == true)
+    stopRecording();
+  else
+    startRecording();
+}
+
+void startRecording()
+{
+  Serial.println("startRecording");
+  cleanSchedule();
+  changeBuzzerAfter(OFF, 0);
+  
+  isRecording = true;
+  lastRecord = millis();
+  lastRecordPosition = 0;
+}
+
+void addRecording()
+{
+  Serial.println("addRecording");
+  unsigned long m = millis();
+  
+  addSchedule(lastRecordPosition, m - lastRecord);
+  lastRecordPosition++;
+  lastRecord = m;
+}
+
+void stopRecording()
+{
+  Serial.println("stopRecording");
+  resetSchedule();
+  changeBuzzerAfter(OFF, 0);
+  
+  isRecording = false;
 }
 
