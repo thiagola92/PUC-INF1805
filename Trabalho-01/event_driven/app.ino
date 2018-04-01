@@ -50,10 +50,10 @@ void setupArduino()
   pinMode(LED3, OUTPUT);
   pinMode(LED4, OUTPUT);
 
-  digitalWrite(LED1, OFF);
-  digitalWrite(LED2, OFF);
-  digitalWrite(LED3, OFF);
   digitalWrite(LED4, OFF);
+  digitalWrite(LED3, OFF);
+  digitalWrite(LED2, OFF);
+  digitalWrite(LED1, OFF);
 }
 
 void always_loop()
@@ -71,10 +71,12 @@ void always_loop()
 
 void button_changed(int p, int v)
 {
-  if(mode == NORMAL_MODE || mode == NORMAL_MODE_HOUR || mode == NORMAL_MODE_MINUTE)
-    normalMode(p, v);
-  else if(mode == ALARM_MODE || mode == ALARM_MODE_HOUR || mode == ALARM_MODE_MINUTE)
-    alarmMode(p, v);
+  if(p == KEY1 && v == PRESSED_DOWN)
+    firstButton();
+  else if(p == KEY2 && v == PRESSED_DOWN)
+    secondButton();
+  else if(p == KEY3 && v == PRESSED_DOWN)
+    thirdButton();
 }
 
 void timer_expired()
@@ -83,70 +85,74 @@ void timer_expired()
   timer_set(0);
 }
 
-void normalMode(int p, int v)
+void firstButton()
+{  
+  if (is_button_pressed(KEY3))
+    firstAndThirdButtons();
+  else if(mode == NORMAL_MODE)
+    turnOnOffAlarm();
+  else if (mode == NORMAL_MODE_MINUTE)
+    normalClock.setMinute(normalClock.getMinute() + 1);
+  else if (mode == NORMAL_MODE_HOUR)
+    normalClock.setHour(normalClock.getHour() + 1);
+  else if (mode == ALARM_MODE_MINUTE)
+    alarmClock.setMinute(alarmClock.getMinute() + 1);
+  else if (mode == ALARM_MODE_HOUR)
+    alarmClock.setHour(alarmClock.getHour() + 1);
+}
+
+void firstAndThirdButtons()
 {
-  if(p == KEY1 && v == PRESSED_DOWN)
+  if(mode == NORMAL_MODE || mode == NORMAL_MODE_HOUR || mode == NORMAL_MODE_MINUTE)
   {
-    if (is_button_pressed(KEY3))
-    {
-      mode = NORMAL_MODE_HOUR;
-      digitalWrite(LED3, ON);
-    }
-    else if (mode == NORMAL_MODE_MINUTE)
-      normalClock.setMinute(normalClock.getMinute() + 1);
-    else if (mode == NORMAL_MODE_HOUR)
-      normalClock.setHour(normalClock.getHour() + 1);
-    else
-      turnOnOffAlarm();
+    mode = NORMAL_MODE_HOUR;
+    digitalWrite(LED3, ON);
   }
-  else if(p == KEY2 && v == PRESSED_DOWN)
+  else if(mode == ALARM_MODE || mode == ALARM_MODE_HOUR || mode == ALARM_MODE_MINUTE)
   {
-    if (is_button_pressed(KEY3))
-    {
-      mode = NORMAL_MODE_MINUTE;
-      digitalWrite(LED2, ON);
-    }
-    else if (mode == NORMAL_MODE_MINUTE)
-      normalClock.setMinute(normalClock.getMinute() - 1);
-    else if (mode == NORMAL_MODE_HOUR)
-      normalClock.setHour(normalClock.getHour() - 1);
+    mode = ALARM_MODE_HOUR;
+    digitalWrite(LED3, ON);
   }
-  else if(p == KEY3 && v == PRESSED_DOWN)
+}
+
+void secondButton()
+{
+  if (is_button_pressed(KEY3))
+    secondAndThirdButtons();
+  else if (mode == NORMAL_MODE_MINUTE)
+    normalClock.setMinute(normalClock.getMinute() - 1);
+  else if (mode == NORMAL_MODE_HOUR)
+    normalClock.setHour(normalClock.getHour() - 1);
+  else if (mode == ALARM_MODE_MINUTE)
+    alarmClock.setMinute(alarmClock.getMinute() - 1);
+  else if (mode == ALARM_MODE_HOUR)
+    alarmClock.setHour(alarmClock.getHour() - 1);
+}
+
+void secondAndThirdButtons()
+{
+  if(mode == NORMAL_MODE || mode == NORMAL_MODE_HOUR || mode == NORMAL_MODE_MINUTE)
+  {
+    mode = NORMAL_MODE_MINUTE;
+    digitalWrite(LED2, ON);
+  }
+  else if(mode == ALARM_MODE || mode == ALARM_MODE_HOUR || mode == ALARM_MODE_MINUTE)
+  {
+    mode = ALARM_MODE_MINUTE;
+    digitalWrite(LED2, ON);
+  }
+}
+
+void thirdButton()
+{
+  if(mode == NORMAL_MODE || mode == NORMAL_MODE_HOUR || mode == NORMAL_MODE_MINUTE)
   {
     mode = ALARM_MODE;
     digitalWrite(LED4, ON);
     digitalWrite(LED3, OFF);
     digitalWrite(LED2, OFF);
   }
-}
-
-void alarmMode(int p, int v)
-{
-  if(p == KEY1 && v == PRESSED_DOWN)
-  {
-    if (is_button_pressed(KEY3))
-    {
-      mode = ALARM_MODE_HOUR;
-      digitalWrite(LED3, ON);
-    }
-    else if (mode == ALARM_MODE_MINUTE)
-      alarmClock.setMinute(alarmClock.getMinute() + 1);
-    else if (mode == ALARM_MODE_HOUR)
-      alarmClock.setHour(alarmClock.getHour() + 1);
-  }
-  else if(p == KEY2 && v == PRESSED_DOWN)
-  {
-    if (is_button_pressed(KEY3))
-    {
-      mode = ALARM_MODE_MINUTE;
-      digitalWrite(LED2, ON);
-    }
-    else if (mode == ALARM_MODE_MINUTE)
-      alarmClock.setMinute(alarmClock.getMinute() - 1);
-    else if (mode == ALARM_MODE_HOUR)
-      alarmClock.setHour(alarmClock.getHour() - 1);
-  }
-  else if(p == KEY3 && v == PRESSED_DOWN)
+  else if(mode == ALARM_MODE || mode == ALARM_MODE_HOUR || mode == ALARM_MODE_MINUTE)
   {
     mode = NORMAL_MODE;
     digitalWrite(LED4, OFF);
