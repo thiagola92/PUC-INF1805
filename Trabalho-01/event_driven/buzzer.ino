@@ -3,13 +3,13 @@
 #define OFF HIGH
 #define ON LOW
 
-#define SCHEDULES_SIZE 10
+#define SCHEDULES_SIZE 100
 #define NO_SCHEDULE -1
 
 boolean buzzerState = OFF;
 unsigned long lastTimeChanged = millis();
 
-unsigned int schedule[SCHEDULES_SIZE];
+unsigned long schedule[SCHEDULES_SIZE];
 int scheduleNow = 0;
 
 void setupBuzzer()
@@ -24,6 +24,8 @@ void cleanSchedule()
 {
   for(int i = 0; i < SCHEDULES_SIZE; i++) 
     schedule[i] = NO_SCHEDULE;
+
+  resetSchedule();
 }
 
 void playSchedule()
@@ -35,12 +37,17 @@ void playSchedule()
     changeBuzzerAfter(!buzzerState, schedule[scheduleNow]);
 }
 
-void addSchedule(int pos_schedule, int ms)
+void addSchedule(int pos_schedule, unsigned long ms)
 {
   schedule[pos_schedule] = ms;
 }
 
-void changeBuzzerAfter(boolean state, int ms)
+void resetSchedule()
+{
+  scheduleNow = 0;
+}
+
+void changeBuzzerAfter(boolean state, unsigned long ms)
 {
   if(buzzerState == state)
     return;
