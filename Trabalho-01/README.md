@@ -5,6 +5,105 @@
 # Documentação
 
 
+## Manual
+O relógio tem 6 modos:  
+* **NORMAL_MODE**  
+* **NORMAL_MODE_HOUR**  
+* **NORMAL_MODE_MINUTE**  
+* **ALARM_MODE**  
+* **ALARM_MODE_HOUR**  
+* **ALARM_MODE_MINUTE**  
+
+Os 3 primeiros modos são os modos do relógio normal.  
+Os 3 ultimos modos são os modos do alarme.  
+
+Esses modos definem o que vai aparecer no display, o horário do alarme ou o horário do relógio normal.  
+Você consegue saber qual relógio está sendo exibido no display olhando para a LED4 (Pin 13):  
+=> LED4 apagada: Relógio normal  
+=> LED4 acesa: Alarme  
+
+### Mudando de modos
+* **NORMAL_MODE**: Basta estar em qualquer um dos modos do alarme e apertar KEY3  
+* **NORMAL_MODE_HOUR**: Basta estar em qualquer um dos modos do alarme, segurar KEY3 e apertar KEY1  
+* **NORMAL_MODE_MINUTE**: Basta estar em qualquer um dos modos do alarme, segurar KEY3 e apertar KEY2
+* **ALARM_MODE**: Basta estar em qualquer um dos modos do relógio normal e apertar KEY3  
+* **ALARM_MODE_HOUR**: Basta estar em qualquer um dos modos do relógio normal, segurar KEY3 e apertar KEY1  
+* **ALARM_MODE_MINUTE**: Basta estar em qualquer um dos modos do relógio normal, segurar KEY3 e apertar KEY2  
+
+#### NORMAL_MODE
+Você está nesse estado?  
+=> LED1 acesa/apagada  
+=> LED2 apagada  
+=> LED3 apagada  
+=> LED4 apagada    
+
+Para saber se o alarm está ligado ou desligado, basta olhar a LED1.  
+=> LED1 apagada: Alarme desligado  
+=> LED1 acesa: Alarme ligado  
+Para desligar ou ligar o alarme, basta apertar KEY1.  
+=> KEY1: Liga/desliga o alarme  
+
+#### NORMAL_MODE_HOUR
+Você está nesse estado?  
+=> LED1 acesa/apagada  
+=> LED2 apagada  
+=> LED3 acesa  
+=> LED4 apagada  
+
+Você pode apertar KEY1 para aumentar as horas ou KEY2 para diminuir as horas.  
+=> KEY1: Aumenta as horas  
+=> KEY2: Diminui as horas  
+
+#### NORMAL_MODE_MINUTE
+Você está nesse estado?  
+=> LED1 acesa/apagada  
+=> LED2 acesa  
+=> LED3 apagada  
+=> LED4 apagada  
+
+Você pode apertar KEY1 para aumentar os minutos ou KEY2 para diminuir os minutos.  
+=> KEY1: Aumenta os minutos  
+=> KEY2: Diminui os minutos  
+
+#### ALARM_MODE
+Você está nesse estado?  
+=> LED1 acesa/apagada  
+=> LED2 apagada  
+=> LED3 apagada  
+=> LED4 acesa  
+
+Nenhuma funcionalidade existe nesse modo (por enquanto).  
+
+#### ALARM_MODE_HOUR
+Você está nesse estado?  
+=> LED1 acesa/apagada  
+=> LED2 apagada  
+=> LED3 acesa  
+=> LED4 acesa  
+
+Você pode apertar KEY1 para aumentar as horas ou KEY2 para diminuir as horas.  
+=> KEY1: Aumenta as horas  
+=> KEY2: Diminui as horas  
+
+#### ALARM_MODE_MINUTE
+Você está nesse estado?  
+=> LED1 acesa/apagada  
+=> LED2 acesa  
+=> LED3 apagada  
+=> LED4 acesa  
+
+Você pode apertar KEY1 para aumentar os minutos ou KEY2 para diminuir os minutos.  
+=> KEY1: Aumenta os minutos  
+=> KEY2: Diminui os minutos  
+
+## Arquivos
+
+**event_driven.ino**: Responsável por lidar com o problema de debounce e oferecer uma interface amigável para o usuário que estiver escrevendo o código no **app.ino**.   
+**app.ino**:  Todo código responsável pelo relógio.  
+**buzzer.ino**:  Funções responsáveis por interagir com o buzzer.  
+**clock.ino**: Classe para representar um relógio, fazer operações entre relógios e armazena horario e minuto.  
+**display.ino**:  Funções responsáveis por interagir com o display.  
+
 # Enunciado
 ## Miniprojeto 1: Relógio Despertador com Arduíno e placa multifunção
 O objetivo desse miniprojeto é construir um relógio despertador usando um Arduino Uno ou Mega e o display de 7 segmentos, as 4 chaves e o beeper disponíveis na placa multifunção usada no curso.
