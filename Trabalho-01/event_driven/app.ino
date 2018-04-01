@@ -88,7 +88,10 @@ void normalMode(int p, int v)
   if(p == KEY1 && v == PRESSED_DOWN)
   {
     if (is_button_pressed(KEY3))
+    {
       mode = NORMAL_MODE_HOUR;
+      digitalWrite(LED3, ON);
+    }
     else if (mode == NORMAL_MODE_MINUTE)
       normalClock.setMinute(normalClock.getMinute() + 1);
     else if (mode == NORMAL_MODE_HOUR)
@@ -99,7 +102,10 @@ void normalMode(int p, int v)
   else if(p == KEY2 && v == PRESSED_DOWN)
   {
     if (is_button_pressed(KEY3))
+    {
       mode = NORMAL_MODE_MINUTE;
+      digitalWrite(LED2, ON);
+    }
     else if (mode == NORMAL_MODE_MINUTE)
       normalClock.setMinute(normalClock.getMinute() - 1);
     else if (mode == NORMAL_MODE_HOUR)
@@ -108,6 +114,9 @@ void normalMode(int p, int v)
   else if(p == KEY3 && v == PRESSED_DOWN)
   {
     mode = ALARM_MODE;
+    digitalWrite(LED4, ON);
+    digitalWrite(LED3, OFF);
+    digitalWrite(LED2, OFF);
   }
 }
 
@@ -116,7 +125,10 @@ void alarmMode(int p, int v)
   if(p == KEY1 && v == PRESSED_DOWN)
   {
     if (is_button_pressed(KEY3))
+    {
       mode = ALARM_MODE_HOUR;
+      digitalWrite(LED3, ON);
+    }
     else if (mode == ALARM_MODE_MINUTE)
       alarmClock.setMinute(alarmClock.getMinute() + 1);
     else if (mode == ALARM_MODE_HOUR)
@@ -125,7 +137,10 @@ void alarmMode(int p, int v)
   else if(p == KEY2 && v == PRESSED_DOWN)
   {
     if (is_button_pressed(KEY3))
+    {
       mode = ALARM_MODE_MINUTE;
+      digitalWrite(LED2, ON);
+    }
     else if (mode == ALARM_MODE_MINUTE)
       alarmClock.setMinute(alarmClock.getMinute() - 1);
     else if (mode == ALARM_MODE_HOUR)
@@ -134,6 +149,9 @@ void alarmMode(int p, int v)
   else if(p == KEY3 && v == PRESSED_DOWN)
   {
     mode = NORMAL_MODE;
+    digitalWrite(LED4, OFF);
+    digitalWrite(LED3, OFF);
+    digitalWrite(LED2, OFF);
   }
 }
 
