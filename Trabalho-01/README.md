@@ -72,9 +72,9 @@ Você está nesse estado?
 => LED3 apagada  
 => LED4 acesa  
 
-Você pode apertar KEY2 para começar a gravar um toque personalizado para o alarme e com KEY1 adicionar os intervalos.
-=> KEY1: Adiciona novo intervalo no toque
-=> KEY2: Inicia/termina gravação
+Você pode apertar KEY2 para começar a gravar um toque personalizado para o alarme e com KEY1 adicionar os intervalos.  
+=> KEY1: Adiciona novo intervalo no toque  
+=> KEY2: Inicia/termina gravação  
 
 #### ALARM_MODE_HOUR
 Você está nesse estado?  
