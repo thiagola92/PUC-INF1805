@@ -12,33 +12,6 @@ end
 function retangulo(x, y, width, height)
   local originalX, originalY = x, y
 
-  draw = function ()
-    love.graphics.rectangle("line", x, y, width, height)
-  end
-
-  function keypressed (key)
-    local mouseX, mouseY = love.mouse.getPosition()
-    if key == 'b' and naimagem (mouseX, mouseY, x, y) then
-       y = 200
-    end
-
-    if key == "down" and naimagem (mouseX, mouseY, x, y) then
-      y = y + 10
-    end
-
-    if key == "right" and naimagem (mouseX, mouseY, x, y) then
-      x = x + 10
-    end
-
-    if key == "up" and naimagem (mouseX, mouseY, x, y) then
-      y = y - 10
-    end
-
-    if key == "left" and naimagem (mouseX, mouseY, x, y) then
-      x = x - 10
-    end
-  end
-
   return {
     draw = function ()
       love.graphics.rectangle("line", x, y, width, height)
