@@ -55,7 +55,7 @@ void setup()
   is_waiting_timer = false;
   initialize_buttons();
   
-  appint();
+  appinit();
 }
 
 void initialize_buttons()

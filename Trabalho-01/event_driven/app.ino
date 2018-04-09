@@ -27,7 +27,7 @@ boolean isRecording = false;
 unsigned long lastRecord = 0;
 int lastRecordPosition = 0;
 
-void appint()
+void appinit()
 {
   setupArduino();
   setupBuzzer();

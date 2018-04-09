@@ -1,4 +1,4 @@
-void appint(void);
+void appinit(void);
 
 void always_loop();
 
