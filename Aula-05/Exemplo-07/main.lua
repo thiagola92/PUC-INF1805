@@ -19,7 +19,7 @@ function love.load()
   valor = 3
   valor2 = 420
 
-  print("EXEMPLO 3")
+  print("EXEMPLO 6")
   coroutine.resume(thread, valor)
   print("RODANDOD NOVAMENTE")
   coroutine.resume(thread, valor2)

@@ -17,7 +17,7 @@ function love.load()
   thread = coroutine.create(exemplo)
   valor = 3
 
-  print("EXEMPLO 3")
+  print("EXEMPLO 7")
   resposta, resposta2 = coroutine.resume(thread, valor)
   print(resposta)
   print(resposta2)

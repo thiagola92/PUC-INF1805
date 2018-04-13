@@ -15,7 +15,7 @@ end
 function love.load()
   threadExemplo = coroutine.wrap(exemplo)
 
-  print("EXEMPLO 3")
+  print("EXEMPLO 8")
   threadExemplo()
   print("RODANDOD NOVAMENTE")
   threadExemplo()
