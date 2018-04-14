@@ -1,17 +1,17 @@
 
-function newblip (vel)
+function newblip (sec)
   local x, y = 0, 0
   local width, height = love.graphics.getDimensions( )
 
-  local update = coroutine.wrap(function(self)
+  local update = function(self)
     while true do
-      x = x + 1
+      x = x + sec
       if x > width then
         x = 0
       end
       coroutine.yield()
     end
-  end)
+  end
 
   local function affected(pos)
     if pos>x-10 and pos<x+10 then
@@ -26,7 +26,7 @@ function newblip (vel)
   end
 
   return {
-    update = update,
+    update = coroutine.wrap(update),
     affected = affected,
     draw = draw
   }
