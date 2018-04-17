@@ -4,7 +4,7 @@ require "blip"
 updateList = {}
 
 function wait(sec, blip)
-  local time = love.timer.getTime() + sec
+  local time = love.timer.getTime() + sec + 0.02  -- Sem o 0.02 os blips 2 e 3 ficavam sincronizados(não sei se apenas no meu computador)
   local newUpdate = {time, blip}
 
   table.insert(updateList, newUpdate)
@@ -47,20 +47,18 @@ function love.update(dt)
   player.update(dt)
 
   local time = love.timer.getTime()
-
-  print(updateList[1])
-  print(updateList[1][1])
-  print(updateList[1][2])
   local i = 1
-  while(i <= #updateList) do
+  local size = #updateList
+  while(i <= size) do
+
     if(time >= updateList[i][1]) then
       updateList[i][2]:update()
       table.remove(updateList, i)
+      size = size - 1
     else
       i = i + 1
     end
-  end
 
-    --listabls[i]:update()
+  end
 
 end

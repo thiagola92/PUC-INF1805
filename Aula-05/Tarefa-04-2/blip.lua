@@ -1,15 +1,16 @@
 
 function newblip (sec)
+  sec = sec / 100
   local x, y = 0, 0
   local width, height = love.graphics.getDimensions( )
 
   local update = function(self)
     while true do
-      x = x + 1
+      x = x + 10
       if x > width then
         x = 0
       end
-      wait(sec/100, self)
+      wait(sec, self)
     end
   end
 
