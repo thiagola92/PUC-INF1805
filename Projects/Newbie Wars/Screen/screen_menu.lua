@@ -1,10 +1,10 @@
+local screen_game = require "Screen/screen_game"
 
 local function new()
+  print("Loading scren menu")
+  
   local NUMBER_OF_SELECTIONS = 3
   local selection = 2
-
-  local function load()
-  end
 
   local function draw_create_game_button()
     love.graphics.setColor(0.75, 0.75, 0.75)
@@ -49,7 +49,6 @@ local function new()
   end
 
   local function update()
-
   end
 
   local function move_selection(value)
@@ -63,17 +62,18 @@ local function new()
 
   local function select()
     if (selection == 1) then
+      screen = screen_game.new()
     elseif (selection == 2) then
     elseif (selection == 3) then
     end
   end
 
   local function keypressed(key)
-    if (key == 'w' or key == 'up') then
+    if (key == "w" or key == "up") then
       move_selection(-1)
-    elseif (key == 's' or key == 'down') then
+    elseif (key == "s" or key == "down") then
       move_selection(1)
-    elseif (key == 'space') then
+    elseif (key == "space") then
       select()
     end
   end
@@ -88,5 +88,5 @@ local function new()
 end
 
 return {
-  new = new
+  new = new,
 }

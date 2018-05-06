@@ -1,7 +1,7 @@
-local menu = require "Screen/screen_menu"
+local screen_menu = require "Screen/screen_menu"
 
 function love.load()
-  screen = menu.new()
+  screen = screen_menu.new()
 end
 
 function love.draw()
