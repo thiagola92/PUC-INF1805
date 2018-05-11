@@ -6,6 +6,7 @@ local function new()
   local selection = layer_selection.new()
 
   local function draw()
+    selection.draw()
   end
 
   local function update()

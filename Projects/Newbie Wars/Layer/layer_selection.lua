@@ -5,7 +5,7 @@ local function new()
   local height = love.graphics.getPixelHeight()
 
   local function draw()
-    
+
   end
 
   local function update()

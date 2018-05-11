@@ -1,22 +1,30 @@
-require("socket")
 local mqtt = require("mqtt_library")
 
-test = "sem resposta"
+function mqttcb(topic, message)
+   print("Received from topic: " .. topic .. " - message:" .. message)
+   controle = not controle
+end
 
-function mqtt_callback(topic, message)
-  print("mqtt_callback", topic, message)
+function love.keypressed(key)
+  if key == 'a' then
+    mqtt_client:publish("apertou-tecla", "a")
+  end
 end
 
 function love.load()
-  mqtt_client = mqtt.client.create("test.mosquitto.org", 1883, mqtt_callback)
-  --mqtt_client:connect("thiagola92")
-  --mqtt_client:subscribe({"key a"})
+  controle = false
+  mqtt_client = mqtt.client.create("test.mosquitto.org", 1883, mqttcb)
+  mqtt_client:connect("cliente love 1")
+  mqtt_client:subscribe({"apertou-tecla"})
 end
 
 function love.draw()
-  love.graphics.print(test)
+   if controle then
+     love.graphics.rectangle("line", 10, 10, 200, 150)
+   end
 end
 
-function love.update()
-  --mqtt_client:handler()
+function love.update(dt)
+  mqtt_client:handler()
 end
+  
