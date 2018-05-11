@@ -67,11 +67,10 @@
 -- - Implement complete MQTT broker (server).
 -- - Consider using Copas http://keplerproject.github.com/copas/manual.html
 -- ------------------------------------------------------------------------- --
-
 function isPsp() return(Socket ~= nil) end
 
 if (not isPsp()) then
-  socket = require("socket")
+  require("socket")
   require("io")
   require("ltn12")
 --require("ssl")

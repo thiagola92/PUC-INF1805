@@ -1,3 +1,4 @@
+socket = require("socket")
 local mqtt = require("mqtt_library")
 
 function mqttcb(topic, message)
@@ -27,4 +28,3 @@ end
 function love.update(dt)
   mqtt_client:handler()
 end
-  
