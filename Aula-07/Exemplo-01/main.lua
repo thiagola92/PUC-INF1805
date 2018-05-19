@@ -8,7 +8,7 @@
 ------------- Ubuntu ------------------
 -- Unzip the file
 -- Go to the ESPlorer folder via terminal and run
--- 	java -jar ESPlorer.jar
+--      java -jar ESPlorer.jar
 -- Select 115200 as baud rate (the default is 9600)
 -- Click on the "reload" button (close to the AutoScroll)
 -- Select your USB port for the esp8266 (mine is /dev/ttyUSB0)
@@ -54,6 +54,10 @@
 -- on esp8266, your USB port change
 -- Better disconnect the USB and try the same
 -- as above
+
+-- One thing that seems to be helping (sometimes)
+-- is running ESPlorer was super user
+--      sudo java -jar ESPlorer.jar
 
 -- If this didn't help, good luck you are on your own
 

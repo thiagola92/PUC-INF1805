@@ -1,3 +1,7 @@
+-- IMPORTANT: from this example until 8 you will not be able to test
+-- because i am not incluinding connecting to wifi on this examples
+-- they were made to be simple as they look
+-- showing just the necessary to know about mqtt (not will include connect to wifi)
 -- For more help about the topic: http://nodemcu.readthedocs.io/en/master/en/modules/mqtt/
 
 -- Creating your client object
