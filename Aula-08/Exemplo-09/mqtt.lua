@@ -19,7 +19,7 @@ local function wifi_connected_callback(iptable)
   print("ip: " .. iptable.IP)
 
   client:connect("test.mosquitto.org", 1883, 0, connected_callback, failed_callback)
-  print("Trying to connect to the server")
+  print("> Trying to connect to the server")
 end
 
 wificonf = {
@@ -31,4 +31,4 @@ wificonf = {
 
 wifi.setmode(wifi.STATION)
 wifi.sta.config(wificonf)
-print("Trying to connect to the wifi")
+print("> Trying to connect to the wifi")
