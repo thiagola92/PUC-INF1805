@@ -3,7 +3,8 @@
 local client = mqtt.Client("thiagola92", 120)
 
 function message_callback(client, topic, message)
-  print("message_callback(" .. topic .. ", " .. message .. ")")
+  print("message_callback")
+  print(topic, message)
 end
 
 function subscribe_callback(client)

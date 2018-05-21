@@ -31,7 +31,8 @@ json = [[
 -- The second argument is the data received, in this example should be
 -- the calculate coordinations using the wifi list in the json
 function callback(code, data)
-  print("callback(" .. code .. ", " .. data .. ")")
+  print("callback")
+  print(code, data)
 end
 
 -- Send a post request, for this you need to say
