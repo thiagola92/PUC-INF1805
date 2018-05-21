@@ -12,14 +12,15 @@ function get_wifi_info(name, info)
 end
 
 function table_to_json(wifi_table)
-  local json_array = "[[\n {\n \"wifiAccessPoints\": [ \n"
+  local json_array = "{\n \"wifiAccessPoints\": [ \n"
 
   for k,v in pairs(wifi_table) do
     print(k, v)
     json_array = json_array .. get_wifi_info(k, v)
   end
+  json_array = json_array:sub(1, #json_array - 2) -- removing the last comman
 
-  json_array = json_array .. "]\n }\n ]]"
+  json_array = json_array .. "]\n }"
   print(json_array)
 end
 
