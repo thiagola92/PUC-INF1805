@@ -1,7 +1,8 @@
 
 url = 'https://www.googleapis.com/geolocation/v1/geolocate?key=SUACHAVE'
 content_type = 'Content-Type: application/json\r\n'
-json = '{
+json = [[
+{
   "wifiAccessPoints": [
     { "macAddress": "c8:4c:75:40:be:87",
       "signalStrength": -60,
@@ -16,7 +17,8 @@ json = '{
       "signalStrength": -66,
       "channel": 9}
   ]
-}'
+}
+]]
 
 function callback(code, data)
   print("callback")

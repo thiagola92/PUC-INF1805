@@ -61,4 +61,16 @@
 
 -- If this didn't help, good luck you are on your own
 
+------------- Ubuntu procedure ---------
+-- Plug esp8266
+-- 	sudo java -jar ESPlorer.jar
+-- 	sudo chmod ugo+rwx /dev/ttyUSB*
+-- Click connect
+-- Click reset button on esp8266
+-- If sucess, click reload
+-- Else, start everything again
+--
+-- If you lose connection, repeat everything again
+
+
 print("Testing")
