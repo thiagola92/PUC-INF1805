@@ -1,14 +1,7 @@
-socket = require("socket")
-local mqtt = require("mqtt_library")
+local server = require("server")
 
-function callback(topic, message)
-  print(message)
-end
-
-function love.load()
-  mqtt_client = mqtt.client.create("test.mosquitto.org", 1883, callback)
-  mqtt_client:connect("lages")
-  --mqtt_client:subscribe({"lages_game_new_player"})
+function love.load(args)
+  game_server = server.new(args[2])
 end
 
 function love.draw()
@@ -16,10 +9,9 @@ function love.draw()
 end
 
 function love.update(dt)
-  --mqtt_client:handler()
+  game_server:handler()
 end
 
 function love.keypressed(key)
-  print(key)
-  --mqtt_client:publish("lages_game_new_player", key)
+  game_server.publish("lages_new_player_", key)
 end
