@@ -3,7 +3,7 @@ local new_game = require("game")
 
 function love.load(args)
   game = new_game()
-  game_server = new_server(args[2])
+  server = new_server(args[2])
 end
 
 function love.draw()
@@ -11,9 +11,9 @@ function love.draw()
 end
 
 function love.update(dt)
-  game_server:handler()
+  server:handler()
 end
 
 function love.keypressed(key)
-  game_server.publish("lages_new_player_" .. game_server.get_id(), key) -- testing
+  server.publish("lages_new_player_" .. server.get_id(), key) -- testing
 end
