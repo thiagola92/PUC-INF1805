@@ -38,12 +38,18 @@ function new()
   		end
   	end
 
-  	if(obstacle_handler.is_time_to_spawn(now)) then
-			obstacle_handler.spawn()
+  	if(#player_list > 0) then
+	  	if(obstacle_handler.is_time_to_spawn(now)) then
+				obstacle_handler.spawn()
+			end
+			obstacle_handler.reduce_spawn_time(dt)
+		end
+
+		if(#player_list == 0) then
+			obstacle_handler.reset()
 		end
 
   	obstacle_handler.update(dt)
-		obstacle_handler.reduce_spawn_time(dt)
   end
 
   local function draw()

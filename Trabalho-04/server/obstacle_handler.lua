@@ -2,10 +2,10 @@ local new_obstacle = require("obstacle")
 
 local function new()
   local obstacle_list = {}
-  local next_spawn_time = 0
-  local spawn_delay = 0.5
-  local obstacles_spawned = 0
-  local max_modifier = 0
+  local next_spawn_time
+  local spawn_delay
+  local obstacles_spawned
+  local max_modifier
 
   local function is_time_to_spawn(now)
     if now >= next_spawn_time then
@@ -37,6 +37,19 @@ local function new()
     return obstacle_list
   end
 
+  local function reset()
+    next_spawn_time = 0
+    spawn_delay = 0.5
+    obstacles_spawned = 0
+    max_modifier = 0
+
+    for i=#obstacle_list, 1, -1 do
+      table.remove(obstacle_list, i)
+    end
+  end
+
+  reset()
+
   local function update(dt)
     for i, obstacle in ipairs(obstacle_list) do
       obstacle.update(dt)
@@ -57,6 +70,7 @@ local function new()
     spawn = spawn,
     reduce_spawn_time = reduce_spawn_time,
     get_obstacle_list = get_obstacle_list,
+    reset = reset,
     update = update,
     draw = draw,
   }
