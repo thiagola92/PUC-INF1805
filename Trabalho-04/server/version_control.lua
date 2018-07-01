@@ -7,9 +7,10 @@ local function color(red, green, blue, alpha)
   alpha = alpha or 1
 
   if(major == 0 and minor < 10) then
-    red = red / 255
-    green = green / 255
-    blue = blue / 255
+    red = red * 255
+    green = green * 255
+    blue = blue * 255
+    alpha = alpha * 255
   end
 
   return red, green, blue, alpha
