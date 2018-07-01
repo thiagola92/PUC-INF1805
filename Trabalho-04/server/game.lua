@@ -1,3 +1,5 @@
+local new_player = require("player")
+
 function new()
   local player_list = {}
 
