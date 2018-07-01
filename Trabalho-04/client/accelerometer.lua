@@ -7,8 +7,6 @@ local function new()
     end
 	end
 
-	local next_send_time = 0
-
 	local function get_axis_x()
 		return accelerometer:getAxis(1)
 	end
