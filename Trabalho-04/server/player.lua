@@ -10,6 +10,10 @@ local function new(id)
     love.graphics.setColor(version_control.color(0.5, 0.5, 0.5))
     love.graphics.circle("fill", position_x, position_y, radius)
   end
+
+  return {
+    draw = draw,
+  }
 end
 
 return new
