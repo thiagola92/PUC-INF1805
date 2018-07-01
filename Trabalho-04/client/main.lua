@@ -1,6 +1,7 @@
 local resolution = require("res")
 local new_client = require("client")
 local new_controller = require("controller")
+local version_control = require("version_control")
 require("preload")
 
 function love.load(args)
@@ -13,7 +14,10 @@ function love.load(args)
   love.window.setMode(GAME_WIDTH, GAME_HEIGHT, {resizable = true})
   resolution.set("fit", GAME_WIDTH, GAME_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)
 
-  client = new_client(args[2], args[3])
+  client_id = args[2] or love.math.random()
+  server_id = args[3] or 0
+  
+  client = new_client(client_id, server_id)
 	controller = new_controller(client)
 end
 
@@ -36,5 +40,9 @@ function love.update(dt)
 	end
 end
 
-function love.mousepressed(key)
+function love.mousepressed(x, y, button)
+  if button == version_control.button(1) then
+    client = new_client(client_id, server_id)
+    controller = new_controller(client)
+  end
 end

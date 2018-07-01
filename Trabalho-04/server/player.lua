@@ -2,8 +2,8 @@ local version_control = require("version_control")
 
 local function new(id)
   -- decidir posicao, cor, raio...
-  local position_x = 100
-  local position_y = 100
+  local position_x = love.graphics.getWidth() / 2
+  local position_y = love.graphics.getHeight() / 2
   local step_x = 0
   local step_y = 0
   local radius = 10
@@ -37,8 +37,14 @@ local function new(id)
   end
 
   local function update()
-		position_x = position_x + step_x
-		position_y = position_y + step_y
+  	local new_position_x = position_x + step_x
+  	local new_position_y = position_y + step_y
+  	if(new_position_x < love.graphics.getWidth() and new_position_x > 0) then
+			position_x = new_position_x
+		end
+		if(new_position_y < love.graphics.getHeight() and new_position_y > 0) then
+			position_y = new_position_y
+		end
   end
 
   local function draw()
