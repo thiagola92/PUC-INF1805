@@ -7,7 +7,6 @@ local function new(client_id, server_id)
 
   client_id = client_id or 0
   server_id = server_id or 0
-  print(client_id, server_id)
   mqtt_client:connect("lages_client_" .. client_id)
   mqtt_client:subscribe({"lages_new_player_" .. server_id})
 
