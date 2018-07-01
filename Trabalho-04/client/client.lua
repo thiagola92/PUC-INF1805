@@ -5,7 +5,7 @@ local client_callback = require("client_callback")
 local function new(client_id, server_id)
   local mqtt_client = mqtt.client.create("test.mosquitto.org", 1883, client_callback)
 
-  client_id = client_id or 0
+  client_id = client_id or love.math.random()
   server_id = server_id or 0
   mqtt_client:connect("lages_client_" .. client_id)
   mqtt_client:publish("lages_new_player_" .. server_id, client_id)
