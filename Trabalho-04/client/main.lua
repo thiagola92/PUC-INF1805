@@ -1,19 +1,7 @@
-local new_accelerometer = require("accelerometer")
-local new_client = require("client")
 local resolution = require("res")
+local new_client = require("client")
+local new_controller = require("controller")
 require("preload")
-
-local function send_movement()
-	while true do
-		-- ENABLE THIS WHEN TESTING WITH ANDROID
-		client.mqtt:publish("lages_movement_x_" .. client.get_id(), accelerometer.get_x())
-		client.mqtt:publish("lages_movement_y_" .. client.get_id(), accelerometer.get_y())
-		next_send_time = love.timer.getTime() + 0.1
-		coroutine.yield()
-	end
-end
-
-send_client_movement = coroutine.wrap(send_movement)
 
 function love.load(args)
   GAME_WIDTH = 800
@@ -26,9 +14,7 @@ function love.load(args)
   resolution.set("fit", GAME_WIDTH, GAME_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)
 
   client = new_client(args[2], args[3])
-  accelerometer = new_accelerometer()
-
-  next_send_time = 0
+	controller = new_controller(client)
 end
 
 function love.resize(w, h)
@@ -45,8 +31,8 @@ function love.update(dt)
 	local now = love.timer.getTime()
   client.mqtt:handler()
 
-  if now >= next_send_time then
-  	send_client_movement()
+	if(controller.is_time_to_send(now)) then
+		controller.send_movement()
 	end
 end
 
