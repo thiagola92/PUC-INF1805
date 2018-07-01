@@ -10,6 +10,16 @@ local function new(id)
     return id
   end
 
+  local function update_x(x)
+  	x = tonumber(x)
+  	position_x = position_x + x * 10
+  end
+
+  local function update_y(y)
+  	y = tonumber(y)
+  	position_y = position_y + y * 10
+  end
+
   local function draw()
     love.graphics.setColor(version_control.color(0.5, 0.5, 0.5))
     love.graphics.circle("fill", position_x, position_y, radius)
@@ -17,6 +27,8 @@ local function new(id)
 
   return {
     get_id = get_id,
+    update_x = update_x,
+    update_y = update_y,
     draw = draw,
   }
 end

@@ -29,6 +29,7 @@ function new()
 
   return {
     add_player = add_player,
+    get_player = get_player,
     draw = draw,
   }
 end

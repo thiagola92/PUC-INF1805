@@ -18,11 +18,19 @@ function server_callback(topic, message)
     game.add_player(message)
   elseif(movement_x ~= nil) then
     local player_id = string.sub(topic, movement_x + 1)
+    local player = game.get_player(player_id)
+    if(player ~= nil) then
+      player.update_x(message)
+    end
 
     print("server >> recebeu atualizacao do X do jogador", player_id)
   elseif(movement_y ~= nil) then
     local player_id = string.sub(topic, movement_y + 1)
-    
+    local player = game.get_player(player_id)
+    if(player ~= nil) then
+      player.update_y(message)
+    end
+
     print("server >> recebeu atualizacao do Y do jogador", player_id)
   end
 end
