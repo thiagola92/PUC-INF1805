@@ -12,6 +12,7 @@ end
 
 function love.update(dt)
   server.mqtt:handler()
+  game.update()
 end
 
 function love.keypressed(key)

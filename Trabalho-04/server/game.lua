@@ -21,6 +21,12 @@ function new()
     return nil
   end
 
+  local function update()
+  	for _, player in ipairs(player_list) do
+  		player.update()
+  	end
+  end
+
   local function draw()
   	for _, player in ipairs(player_list) do
   		player.draw()
@@ -30,6 +36,7 @@ function new()
   return {
     add_player = add_player,
     get_player = get_player,
+    update = update,
     draw = draw,
   }
 end
