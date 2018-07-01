@@ -13,18 +13,9 @@ local function new(server_id)
     return server_id
   end
 
-  local function handler()
-    mqtt_client:handler()
-  end
-
-  local function publish(topic, message)
-    mqtt_client:publish(topic, message)
-  end
-
   return {
     get_id = get_id,
-    handler = handler,
-    publish = publish,
+    mqtt = mqtt_client,
   }
 end
 

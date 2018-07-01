@@ -11,9 +11,9 @@ function love.draw()
 end
 
 function love.update(dt)
-  server:handler()
+  server.mqtt:handler()
 end
 
 function love.keypressed(key)
-  server.publish("lages_new_player_" .. server.get_id(), key) -- testing
+  server.mqtt:publish("lages_new_player_" .. server.get_id(), key) -- testing
 end
