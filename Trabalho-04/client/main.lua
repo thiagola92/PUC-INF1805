@@ -6,8 +6,8 @@ require("preload")
 local function send_movement()
 	while true do
 		-- ENABLE THIS WHEN TESTING WITH ANDROID
-		--client.mqtt:publish("lages_movement_x_" .. client.get_id(), accelerometer.get_x())
-		--client.mqtt:publish("lages_movement_y_" .. client.get_id(), accelerometer.get_y())
+		client.mqtt:publish("lages_movement_x_" .. client.get_id(), accelerometer.get_x())
+		client.mqtt:publish("lages_movement_y_" .. client.get_id(), accelerometer.get_y())
 		next_send_time = love.timer.getTime() + 0.1
 		coroutine.yield()
 	end

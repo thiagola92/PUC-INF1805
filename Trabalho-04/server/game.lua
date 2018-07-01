@@ -11,6 +11,16 @@ function new()
     table.insert(player_list, player)
   end
 
+  local function get_player(player_id)
+  	for _, player in ipairs(player_list) do
+  		if(player.get_id() == player_id) then
+        return player
+      end
+  	end
+
+    return nil
+  end
+
   local function draw()
   	for _, player in ipairs(player_list) do
   		player.draw()

@@ -6,12 +6,17 @@ local function new(id)
   local position_y = 100
   local radius = 10
 
+  local function get_id()
+    return id
+  end
+
   local function draw()
     love.graphics.setColor(version_control.color(0.5, 0.5, 0.5))
     love.graphics.circle("fill", position_x, position_y, radius)
   end
 
   return {
+    get_id = get_id,
     draw = draw,
   }
 end
