@@ -5,20 +5,24 @@ function server_callback(topic, message)
   print(movement_x, movement_y)
 
   if(topic == new_player) then
-    print("server >> recebeu novo jogador")
+    -- Se jogador já estiver no jogo
+    if(game.get_player(message) ~= nil) then
+      return
+    end
 
     local player_channels = {
       "lages_movement_x_" .. message,
       "lages_movement_y_" .. message,
     }
 
-    print(player_channels[1], player_channels[2])
-
     server.mqtt:subscribe(player_channels)
     game.add_player(message)
+
+    print("server >> recebeu novo jogador", message)
   elseif(movement_x ~= nil) then
     local player_id = string.sub(topic, movement_x + 1)
     local player = game.get_player(player_id)
+
     if(player ~= nil) then
       player.update_x(message)
     end
@@ -27,6 +31,7 @@ function server_callback(topic, message)
   elseif(movement_y ~= nil) then
     local player_id = string.sub(topic, movement_y + 1)
     local player = game.get_player(player_id)
+
     if(player ~= nil) then
       player.update_y(message)
     end

@@ -9,7 +9,7 @@ local function new(server_id)
   mqtt_client:connect("lages_server_" .. server_id)
   mqtt_client:subscribe({"lages_new_player_" .. server_id})
 
-  function get_id()
+  local function get_id()
     return server_id
   end
 

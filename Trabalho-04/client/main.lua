@@ -16,7 +16,7 @@ function love.load(args)
 
   client_id = args[2] or love.math.random()
   server_id = args[3] or 0
-  
+
   client = new_client(client_id, server_id)
 	controller = new_controller(client)
 end

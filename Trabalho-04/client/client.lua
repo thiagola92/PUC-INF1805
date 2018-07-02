@@ -10,11 +10,11 @@ local function new(client_id, server_id)
   mqtt_client:connect("lages_client_" .. client_id)
   mqtt_client:publish("lages_new_player_" .. server_id, client_id)
 
-  function get_id()
+  local function get_id()
     return client_id
   end
 
-  function get_server_id()
+  local function get_server_id()
     return server_id
   end
 
