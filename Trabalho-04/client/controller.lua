@@ -1,6 +1,6 @@
 local new_accelerometer = require("accelerometer")
 
-local function new(client)
+local function new()
   local accelerometer = new_accelerometer()
   local last_x = 0
   local last_y = 0
@@ -25,7 +25,7 @@ local function new(client)
       last_y = accelerometer.get_y()
   		client.mqtt:publish("lages_movement_x_" .. client.get_id(), last_x)
   		client.mqtt:publish("lages_movement_y_" .. client.get_id(), last_y)
-  		--next_send_time = love.timer.getTime() + 0.1
+  		--next_send_time = love.timer.getTime() + 0.5
   		coroutine.yield()
   	end
   end

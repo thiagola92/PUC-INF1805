@@ -1,7 +1,6 @@
 local version_control = require("version_control")
 
 local function new(id)
-  -- decidir posicao, cor, raio...
   local position_x = love.graphics.getWidth() / 2
   local position_y = love.graphics.getHeight() / 2
   local step_x = 0

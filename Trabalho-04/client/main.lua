@@ -14,11 +14,8 @@ function love.load(args)
   love.window.setMode(GAME_WIDTH, GAME_HEIGHT, {resizable = true})
   resolution.set("fit", GAME_WIDTH, GAME_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)
 
-  client_id = args[2] or love.math.random()
-  server_id = args[3] or 0
-
   client = new_client(client_id, server_id)
-	controller = new_controller(client)
+	controller = new_controller()
 end
 
 function love.resize(w, h)
@@ -42,7 +39,6 @@ end
 
 function love.mousepressed(x, y, button)
   if button == version_control.button(1) then
-    client = new_client(client_id, server_id)
-    controller = new_controller(client)
+    client.reset()
   end
 end

@@ -20,7 +20,6 @@ function new()
     if(get_player(player_id) == nil) then
 	    local player = new_player(player_id)
 	    table.insert(player_list, player)
-	    print("game >> adicionando novo jogador ao jogo", player_id)
   	end
   end
 
