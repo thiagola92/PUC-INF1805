@@ -23,19 +23,36 @@ function new()
   	end
   end
 
+  local function remove_player(index)
+    player = player_list[index]
+
+    local player_channels = {
+      "lages_movement_x_" .. player.get_id(),
+      "lages_movement_y_" .. player.get_id(),
+    }
+
+    table.remove(player_list, index)
+    server.mqtt:unsubscribe(player_channels)
+  end
+
+  local function check_collisions()
+    local obstacle_list = obstacle_handler.get_obstacle_list()
+
+    for player_index, player in ipairs(player_list) do
+      player.update()
+      for obstacle_index, obstacle in ipairs(obstacle_list) do
+        if(collision.circle(player.get_x(), player.get_y(), player.get_radius(), obstacle.get_x(), obstacle.get_y(), obstacle.get_radius())) then
+          remove_player(player_index)
+          table.remove(obstacle_list, obstacle_index)
+        end
+      end
+    end
+  end
+
   local function update(dt)
   	local now = love.timer.getTime()
-  	local obstacle_list = obstacle_handler.get_obstacle_list()
 
-  	for player_index, player in ipairs(player_list) do
-  		player.update()
-  		for obstacle_index, obstacle in ipairs(obstacle_list) do
-  			if(collision.circle(player.get_x(), player.get_y(), player.get_radius(), obstacle.get_x(), obstacle.get_y(), obstacle.get_radius())) then
-  				table.remove(player_list, player_index)
-  				table.remove(obstacle_list, obstacle_index)
-  			end
-  		end
-  	end
+    check_collisions()
 
   	if(#player_list > 0) then
 	  	if(obstacle_handler.is_time_to_spawn(now)) then
