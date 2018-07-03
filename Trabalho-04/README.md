@@ -43,5 +43,17 @@ Se um jogador entrar no jogo, o server da subscribe a todos os tópicos daquele 
 A primeira coisa que o client faz é dar *publish* para o tópico do server. Dessa maneira o server sabe que aquele jogador quer jogar.  
 Após isso ele fica eternamente dando publish para os tópicos dele mesmo.  
 
-## Dificuldades
-**Muitas mensagens** -
+## Dificuldades  
+**Muitas mensagens** - Em um jogo local, normalmente você envia sempre os movimentos do jogador, para deixar o jogo o mais atualizado/preciso. Usando a biblioteca de MQTT isso não pareceu possível.  
+![Error](img/error001.png)  
+Parece que enviar a todo momento causava algum erro dentro da biblioteca.  
+Tentamos duas coisas para resolver.  
+ * Mandar a cada X ms a atualização do estado do jogador.  
+ * Mandar apenas quando o jogador fizesse alguma atualização 'grande'  
+
+Acabamos que ficamos com a segunda para não chegar nem perto de sobrecarregar a biblioteca MQTT
+
+**Movimento do jogador ser em intervalos** - Como não enviavamos o tempo todo qual o movimento que o jogador está fazendo, decidimos gravar a ultima mensagem para que a gente repetisse o mesmo movimento enquanto o jogador não fizesse outro.  
+Lado negativo é que se o jogador parar de jogar ou perder a conexão, o personagem dele continua por se movimentar naquela mesma direção para sempre.  
+
+**Delay** - O tempo para a mensagem do movimento chegar no server demorava mais que o esperado. Esse problema não soubemos como corrigir, podia ser simplesmente a rota até o server que estava ruim ou que biblioteca MQTT não é boa para coisas em tempo real.  
