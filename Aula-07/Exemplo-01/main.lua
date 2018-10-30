@@ -5,7 +5,7 @@
 -- https://esp8266.ru/esplorer/
 -- To run you will need at least Java 7 installed
 
-------------- Ubuntu ------------------
+------------- Instructions ------------------
 -- Unzip the file
 -- Go to the ESPlorer folder via terminal and run
 --      java -jar ESPlorer.jar
@@ -19,6 +19,21 @@
 -- select your file .lua to upload
 -- click on "reload" to update the esp8266,
 -- and click on your file name button to run it
+
+------------- Windows problems ---------
+-- You can find a problem when clicking on "open"
+-- "Communication with MCU..." forever
+-- Try pressing the reset button on esp8266
+
+-- You can find another problem when clicking on "open"
+-- Your ESPlorer close without saying anything
+-- This happen because of Java 10,
+-- Install Java 8
+-- Open CMD or PowerShellMove as administrator
+-- Move to the Java 8 folder:
+--      C:\WINDOWS\system32>cd C:\Program Files\Java\jdk1.8.0_191\bin
+-- Now open the ESPlorer.jar file: 
+--      C:\Program Files\Java\jdk1.8.0_191\bin>java -jar C:\Users\ThiagoLA92\Downloads\ESPlorer\ESPlorer.jar
 
 ------------- Ubuntu problems ---------
 -- You can find a problem when clicking on "open"
