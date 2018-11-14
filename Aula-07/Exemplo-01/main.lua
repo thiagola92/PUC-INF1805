@@ -1,15 +1,16 @@
 -- Most of this code is comments
 -- I am writing this for Noemi class, PUC-Rio
 
--- Download ESPlorer on this page:
+-- Download ESPlorer on this page (russian page):
 -- https://esp8266.ru/esplorer/
 -- To run you will need at least Java 7 installed
 
+-- I am using NodeMCU esp8266
+
 ------------- Instructions ------------------
 -- Unzip the file
--- Go to the ESPlorer folder via terminal and run
---      java -jar ESPlorer.jar
--- Select 115200 as baud rate (the default is 9600)
+-- Go to the ESPlorer folder and run it
+-- Select 115200 as baud rate (the default is 9600) <<<< Not sure why this is documented
 -- Click on the "reload" button (close to the AutoScroll)
 -- Select your USB port for the esp8266 (mine is /dev/ttyUSB0)
 -- Click the big button "open" and will change to "close"
