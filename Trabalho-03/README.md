@@ -1,7 +1,7 @@
 # Dispositivo de alarme com geolocalização
 **Dupla**: Leonardo Lages e Thiago Lages
 
-Exemplo do NodeMCU rodando o cliente e LOVE2D rodando o servidor: https://www.youtube.com/watch?v=4HGvy76VeIs
+[![youtube link](https://i.ibb.co/zJrx8dz/https-i-ytimg-com-vi-4-HGvy76-Ve-Is-maxresdefault.jpg)](https://www.youtube.com/watch?v=4HGvy76VeIs "youtube link")
 
 ---
 
